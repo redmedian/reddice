@@ -11,7 +11,11 @@ let app = express();
 const compiler = webpack(webpackConfig);
 
 // в данной секции будем подключать миделвары
-app.use(webpackMiddleware(compiler));
+app.use(webpackMiddleware(compiler, {
+  hot: true,
+  publicPath: webpackConfig.output.publicPath,
+  noInfo: true
+}));
 app.use(webpackHotMiddleware(compiler));
 
 app.get('/*', (req, res) => {

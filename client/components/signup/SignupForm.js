@@ -1,6 +1,7 @@
 import React from 'react';
 import timezones from '../../data/timezone';
 import map from 'lodash/map';
+// import axios from 'axios';
 
 class SignupForm extends React.Component {
   // коструктор. определяем состояние
@@ -30,7 +31,9 @@ class SignupForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
+    // axios.post('/api/users', { user: this.state });
+    this.props.userSignupRequest(this.state);
+    // console.log(this.state);
   }
 
   render() {
@@ -108,6 +111,11 @@ class SignupForm extends React.Component {
       </form>
     );
   }
+}
+
+// TODO Хрен пока знает как работает. Нужно разобраться!
+SignupForm.propTypes = {
+  userSignupRequest: React.PropTypes.func.isRequired
 }
 
 export default SignupForm;
