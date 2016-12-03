@@ -1,8 +1,14 @@
 // Наш первый компонент в клиентской части
 import React from 'react';
+import Greetings from './Greetings';
 
-export default () => {
-  return (
-    <h1>Hello from react</h1>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      // <h1>Hello from react</h1>
+      <Greetings />
+    );
+  };
 }
+
+export default App;
