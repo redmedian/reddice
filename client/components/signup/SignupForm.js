@@ -54,8 +54,13 @@ class SignupForm extends React.Component {
       // axios.post('/api/users', { user: this.state });
       this.props.userSignupRequest(this.state).then(
         () => {
-        // После успеной авторизации редиректим в корень проекта
-        this.context.router.push('/');
+          // выводим flashMessage
+          this.props.addFlashMessage({
+            type: 'success',
+            text: 'You signed up successfuly. Welcome!'
+          });
+          // После успеной авторизации редиректим в корень проекта
+          this.context.router.push('/');
       },
       // ловим ошибки валидации с серверной части и передаем их в клиентскую часть
       (error) => this.setState({ errors: error.response.data, isLoading: false })
@@ -136,7 +141,8 @@ class SignupForm extends React.Component {
 
 // TODO Хрен пока знает как работает. Нужно разобраться!
 SignupForm.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired
+  userSignupRequest: React.PropTypes.func.isRequired,
+  addFlashMessage: React.PropTypes.func.isRequired
 }
 
 // Провайдер для обработки this.context.router.push('/');
