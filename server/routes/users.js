@@ -6,16 +6,14 @@ let router = express.Router();
 router.post('/', (req, res) => {
   // console.log(req.body);
 
-  // Timeout for loading form button
-  setTimeout(() => {
-    // Validation
-    const { errors, isValid } = validateInput(req.body);
+  // Validation
+  const { errors, isValid } = validateInput(req.body);
 
-    if (!isValid) {
-      res.status(400).json(errors);
-    }
-
-  }, 2000);
+  if (isValid) {
+    res.json({ success: true });
+  } else {
+    res.status(400).json(errors);
+  }
 });
 
 export default router;

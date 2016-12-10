@@ -52,11 +52,14 @@ class SignupForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       // axios.post('/api/users', { user: this.state });
-      this.props.userSignupRequest(this.state)
+      this.props.userSignupRequest(this.state).then(
+        () => {
+        // После успеной авторизации редиректим в корень проекта
+        this.context.router.push('/');
+      },
       // ловим ошибки валидации с серверной части и передаем их в клиентскую часть
-      .catch(error => {
-        this.setState({ errors: error.response.data, isLoading: false })
-      });﻿
+      (error) => this.setState({ errors: error.response.data, isLoading: false })
+    );﻿
     // console.log(this.state);
     }
   }
@@ -134,6 +137,12 @@ class SignupForm extends React.Component {
 // TODO Хрен пока знает как работает. Нужно разобраться!
 SignupForm.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired
+}
+
+// Провайдер для обработки this.context.router.push('/');
+// TODO Разобраться как работает
+SignupForm.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 export default SignupForm;
